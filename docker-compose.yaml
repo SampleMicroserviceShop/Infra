@@ -1,0 +1,22 @@
+services:
+    mongo:
+        image: mongo
+        container_name: mongo
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodbdata:/data/db
+
+    rabbitmq:
+        image: rabbitmq:management
+        container_name: rabbitmq
+        ports:
+            - 5672:5672
+            - 15672:15672
+        volumes:
+            - rabbitmqdata:/var/lib/rabbitmq
+        hostname: rabbitmq # Its important because this is associated to how RabbitMQ stores data and if not specified it gets a random value, and each time we restart the container RabbitMQ would store data in a different place
+
+volumes:
+    mongodbdata:
+    rabbitmqdata:
