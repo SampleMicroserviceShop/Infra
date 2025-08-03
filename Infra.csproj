@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageDescription>Sample Microservice Shop Infrastructure Commands</PackageDescription>
+		<Authors>MH Karami</Authors>
+		<Company>SampleMicroserviceShop</Company>
+		<RepositoryUrl>
+			https://github.com/SampleMicroserviceShop/Infra
+		</RepositoryUrl>
+	</PropertyGroup>
+
+</Project>
