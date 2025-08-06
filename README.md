@@ -12,3 +12,11 @@ dotnet nuget add source --username USERNAME --password $gh_pat --store-password-
 ```powershell
 az cosmosdb create --name $appname --resource-group $appname --kind MongoDB --enable-free-tier
 ```
+
+## Creating the AKS cluster
+```powershell
+az feature register --name EnablePodIdentityPreview --namespace Microsoft.ContainerService
+az extension add --name aks-preview
+az aks create -n $appname -g $appname --node-vm-size Standard_B2s --node-count 2 --attach-acr $appname --enable-pod-identity --enable-workload-identity --generate-ssh-keys
+az aks get-credentials --resource-group $appname --name $appname
+```
