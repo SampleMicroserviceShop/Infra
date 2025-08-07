@@ -29,6 +29,16 @@ az cosmosdb create --name $appname --resource-group $appname --kind MongoDB --en
 az servicebus namespace create --resource-group $appname --name $appname --sku Standard
 ```
 
+## Register Azure subscription to use ACR
+```powershell
+az provider register --namespace Microsoft.ContainerRegistry
+```
+
+## Creating the container registry
+```powershell
+az acr create --name $appname --resource-group $appname --sku Basic
+```
+
 ## Register Azure subscription to use AKS
 ```powershell
 az provider register --namespace Microsoft.ContainerService
