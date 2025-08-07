@@ -24,6 +24,11 @@ az group create --name $appname --location westus2
 az cosmosdb create --name $appname --resource-group $appname --kind MongoDB --enable-free-tier
 ```
 
+## Creating the Service Bus namespace
+```powershell
+az servicebus namespace create --resource-group $appname --name $appname --sku Standard
+```
+
 ## Register Azure subscription to use AKS
 ```powershell
 az provider register --namespace Microsoft.ContainerService
