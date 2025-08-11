@@ -77,4 +77,5 @@ kubectl -n emissary wait deploy -l app.kubernetes.io/instance=emissary-ingress -
 ## Configuring Emissary-ingress routing
 ```powershell
 kubectl apply -f .\emissary-ingress\listener.yaml -n $emissary_namespace
+kubectl apply -f .\emissary-ingress\mappings.yaml -n $emissary_namespace
 ```
