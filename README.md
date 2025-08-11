@@ -5,6 +5,7 @@ Sample Microservice Shop Infrastructure components
 ```powershell
 $owner="SampleMicroserviceShop"
 $appname="microshop"
+$emissary_namespace="emissary"
 ```
 
 ## Add the GitHub package source
@@ -64,11 +65,16 @@ helm repo update
  
 ## Installing Emissary-ingress - Create Namespace and Install:
 ```powershell
-kubectl create namespace emissary
+kubectl create namespace $emissary_namespace
 kubectl apply -f https://app.getambassador.io/yaml/emissary/3.9.1/emissary-crds.yaml
  
 kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
-$namespace="emissary"
-helm install emissary-ingress --namespace $namespace datawire/emissary-ingress --set service.annotations."service\.beta\.kubernetes\.io/azure-dns-label-name"=$appname 
+
+helm install emissary-ingress --namespace $emissary_namespace datawire/emissary-ingress --set service.annotations."service\.beta\.kubernetes\.io/azure-dns-label-name"=$appname 
 kubectl -n emissary wait deploy -l app.kubernetes.io/instance=emissary-ingress --for=condition=available --timeout=90s
+```
+
+## Configuring Emissary-ingress routing
+```powershell
+kubectl apply -f .\emissary-ingress\listener.yaml -n $emissary_namespace
 ```
