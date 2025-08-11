@@ -50,3 +50,8 @@ az provider show -n Microsoft.ContainerService
 az aks create -n $appname -g $appname --node-vm-size Standard_B2s --node-count 2 --attach-acr $appname --enable-oidc-issuer --enable-workload-identity --generate-ssh-keys
 az aks get-credentials --resource-group $appname --name $appname
 ```
+
+## Creating the Key Vault
+```powershell
+az keyvault create -n $appname -g $appname
+```
