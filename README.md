@@ -79,3 +79,8 @@ kubectl -n emissary wait deploy -l app.kubernetes.io/instance=emissary-ingress -
 kubectl apply -f .\emissary-ingress\listener.yaml -n $emissary_namespace
 kubectl apply -f .\emissary-ingress\mappings.yaml -n $emissary_namespace
 ```
+
+## Installing cert-manager
+```powershell
+helm install cert-manager oci://quay.io/jetstack/charts/cert-manager --version v1.18.2 --namespace $emissary_namespace  --create-namespace --set crds.enabled=true
+```
