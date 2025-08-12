@@ -1,8 +1,8 @@
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
-  name: quote-backend
+  name: identity-mapping
 spec:
   hostname: microshop.westus2.cloudapp.azure.com
-  prefix: /identity-srv/
+  prefix: /identity-svc
   service: identity-service.identity
