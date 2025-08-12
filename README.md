@@ -84,3 +84,14 @@ kubectl apply -f .\emissary-ingress\mappings.yaml -n $emissary_namespace
 ```powershell
 helm install cert-manager oci://quay.io/jetstack/charts/cert-manager --version v1.18.2 --namespace $emissary_namespace  --create-namespace --set crds.enabled=true
 ```
+
+## Creating the cluster issuer
+```powershell
+kubectl apply -f .\cert-manager\cluster-issuer.yaml -n $emissary_namespace
+kubectl apply -f .\cert-manager\acme-challenge.yaml -n $emissary_namespace
+```
+
+## Creating the tls certificate
+```powershell
+kubectl apply -f .\emissary-ingress\tls-certificate.yaml -n $emissary_namespace
+```
