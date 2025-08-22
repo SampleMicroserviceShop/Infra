@@ -1,0 +1,21 @@
+envVariables:
+  ServiceSettings__MessageBroker : SERVICEBUS
+  ServiceSettings__KeyVaultName : microshop
+
+container:
+  liveness:
+    path: /health/live
+    initialDelaySeconds: 10
+  readiness:
+    path: /health/ready
+    initialDelaySeconds: 10
+
+resources:
+  limits:
+    memory: "128Mi"
+    cpu: "150m"
+
+service:
+  type: ClusterIP
+  port: 80
+
