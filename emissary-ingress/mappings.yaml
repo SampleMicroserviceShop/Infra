@@ -1,11 +1,24 @@
+# apiVersion: getambassador.io/v3alpha1
+# kind: Mapping
+# metadata:
+#   name: identity-mapping
+# spec:
+#   hostname: microshop.westus2.cloudapp.azure.com
+#   prefix: /identity-svc/
+#   service: identity-service.identity
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
   name: identity-mapping
+  namespace: emissary
 spec:
   hostname: microshop.westus2.cloudapp.azure.com
-  prefix: /identity-svc/
   service: identity-service.identity
+  prefix: /identity-svc/
+  timeout_ms: 30000
+  add_request_headers:
+    X-Forwarded-Prefix:
+      value: /identity-svc
 
 ---
 apiVersion: getambassador.io/v3alpha1
@@ -36,3 +49,13 @@ spec:
   hostname: microshop.westus2.cloudapp.azure.com
   prefix: /trading-svc/
   service: trading-service.trading
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: frontend-mapping
+spec:
+  hostname: microshop.westus2.cloudapp.azure.com
+  prefix: /
+  service: frontend-client.frontend

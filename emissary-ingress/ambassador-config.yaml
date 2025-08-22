@@ -1,0 +1,8 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Module
+metadata:
+  name: ambassador
+spec:
+  config:
+    use_remote_address: true
+    x_forwarded_proto_redirect: true
