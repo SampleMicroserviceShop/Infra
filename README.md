@@ -144,3 +144,10 @@ az role assignment create --assignee $azClientId --role "Azure Kubernetes Servic
 ```powershell
 az role assignment create --assignee $azClientId --role "Azure Kubernetes Service Contributor Role" --scope $aksId
 ```
+
+# Deploying Seq to AKS
+```powershell
+helm repo add datalust https://helm.datalust.co
+helm repo update
+helm install seq datalust/seq -n observability --create-namespace --set firstRunAdminPassword=MyLocalPass123
+```

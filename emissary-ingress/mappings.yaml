@@ -59,3 +59,13 @@ spec:
   hostname: microshop.westus2.cloudapp.azure.com
   prefix: /
   service: frontend-client.frontend
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: seq-mapping
+spec:
+  hostname: microshop.westus2.cloudapp.azure.com
+  prefix: /seq/
+  service: seq.observability
