@@ -101,3 +101,46 @@ kubectl apply -f .\emissary-ingress\tls-certificate.yaml -n $emissary_namespace
 kubectl apply -f .\emissary-ingress\listener.yaml -n $emissary_namespace
 kubectl apply -f .\emissary-ingress\host.yaml -n $emissary_namespace
 ```
+
+
+## Packaging and publishing the microservice helm chart
+```powershell
+helm package .\helm\microservice
+$helmUser=[guid]::Empty.Guid
+$helmPassword=$(az acr login --name $appname --expose-token --output tsv --query accessToken)
+$env:HELM_EXPERIMENTAL_OCI=1
+helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
+helm push microservice-0.1.0.tgz oci://$appname.azurecr.io/helm
+```
+
+## Create GitHub service principal
+```powershell
+$resoucegroupName=$appname
+$acrName=$appname
+$aksName=$appname
+$githubOrg=$owner
+$githubRepo="Identity.Service"
+$azClientId=<CLIENT_ID> =? $appId
+$azSubscriptionId=<SUBSCRIPTION_ID>
+```
+### ACR
+```powershell
+$appId=$(az ad app create --display-name $appName --query appId -o tsv)
+$acrId = az acr show --name $acrName --resource-group $resourceGroupName --query id -o tsv
+az ad sp create --id $appId
+az role assignment create --assignee $appId --role "AcrPush" --scope $acrId
+az role assignment create --assignee $azClientId --role "AcrPush" --scope $acrId
+```
+### AKS
+```powershell
+$aksId = az aks show --name $aksName --resource-group $resourceGroupName --query id -o tsv
+```
+### Cluster User Role
+```powershell
+az role assignment create --assignee $azClientId --role "Azure Kubernetes Service Contributor Role" --scope $aksId
+
+```
+### Contributor Role
+```powershell
+az role assignment create --assignee $azClientId --role "Azure Kubernetes Service Contributor Role" --scope $aksId
+```
