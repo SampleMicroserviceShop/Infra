@@ -105,12 +105,13 @@ kubectl apply -f .\emissary-ingress\host.yaml -n $emissary_namespace
 
 ## Packaging and publishing the microservice helm chart
 ```powershell
+$helmchart_version="0.1.1"
 helm package .\helm\microservice
 $helmUser=[guid]::Empty.Guid
 $helmPassword=$(az acr login --name $appname --expose-token --output tsv --query accessToken)
 $env:HELM_EXPERIMENTAL_OCI=1
 helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
-helm push microservice-0.1.0.tgz oci://$appname.azurecr.io/helm
+helm push microservice-$helmchart_version.tgz oci://$appname.azurecr.io/helm
 ```
 
 ## Create GitHub service principal
