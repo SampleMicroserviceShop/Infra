@@ -151,4 +151,13 @@ az role assignment create --assignee $azClientId --role "Azure Kubernetes Servic
 helm repo add datalust https://helm.datalust.co
 helm repo update
 helm install seq datalust/seq -n observability --create-namespace --set firstRunAdminPassword=MyLocalPass123
+kubectl get service -n observability
 ```
+
+## Deploy Jaeger
+```powershell
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+helm repo update
+helm upgrade jaeger jaegertracing/jaeger --values .\jaeger\values.yaml -n observability --install --create-namespace
+```
+
