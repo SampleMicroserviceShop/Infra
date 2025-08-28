@@ -1,35 +1,45 @@
 services:
-    mongo:
-        image: mongo
-        container_name: mongo
-        ports:
-            - 27017:27017
-        volumes:
-            - mongodbdata:/data/db
-
-    rabbitmq:
-        image: rabbitmq:management
-        container_name: rabbitmq
-        ports:
-            - 5672:5672
-            - 15672:15672
-        volumes:
-            - rabbitmqdata:/var/lib/rabbitmq
-        hostname: rabbitmq # Its important because this is associated to how RabbitMQ stores data and if not specified it gets a random value, and each time we restart the container RabbitMQ would store data in a different place
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodbdata:/data/db
     
-    seq:
-       image: datalust/seq
-       container_name: seq
-       environment:
-           - ACCEPT_EULA=Y
-           - SEQ_FIRSTRUN_ADMINPASSWORD=MyStrongPassword123
-       ports:
-           - 5341:5341
-           - 80:80
-       volumes:
-           - seqdata:/data
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    hostname: rabbitmq # Its important because this is associated to how RabbitMQ stores data and if not specified it gets a random value, and each time we restart the container RabbitMQ would store data in a different place
+  
+  seq:
+    image: datalust/seq
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=MyStrongPassword123
+    ports:
+      - 5341:5341
+      - 80:80
+    volumes:
+      - seqdata:/data
+  jaeger:
+    image: jaegertracing/all-in-one
+    container_name: jaeger
+    ports:
+      - 5778:5778
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 14250:14250
+      - 14268:14268
+      - 16686:16686
 
 volumes:
-    mongodbdata:
-    rabbitmqdata:
-    seqdata:
+  mongodbdata:
+  rabbitmqdata:
+  seqdata:
