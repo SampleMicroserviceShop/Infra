@@ -80,3 +80,25 @@ spec:
   prefix: /jaeger/
   rewrite: ""
   service: jaeger-query.observability:16686
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: prometheus-mapping
+spec:
+  hostname: microshop.westus2.cloudapp.azure.com
+  prefix: /prometheus/
+  service: prometheus-operated.observability:9090
+  timeout_ms: 30000
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: grafana-mapping
+spec:
+  hostname: microshop.westus2.cloudapp.azure.com
+  prefix: /grafana/
+  rewrite: ""
+  service: prometheus-grafana.observability
