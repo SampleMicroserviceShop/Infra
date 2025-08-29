@@ -105,7 +105,7 @@ kubectl apply -f .\emissary-ingress\host.yaml -n $emissary_namespace
 
 ## Packaging and publishing the microservice helm chart
 ```powershell
-$helmchart_version="0.1.3"
+$helmchart_version="0.1.4"
 helm package .\helm\microservice
 $helmUser=[guid]::Empty.Guid
 $helmPassword=$(az acr login --name $appname --expose-token --output tsv --query accessToken)
