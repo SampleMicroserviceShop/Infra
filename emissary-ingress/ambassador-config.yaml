@@ -6,3 +6,5 @@ spec:
   config:
     use_remote_address: true
     x_forwarded_proto_redirect: true
+    defaults:
+      timeout_ms: 60000
